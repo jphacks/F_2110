@@ -1,0 +1,33 @@
+<div class="user-index-page">
+  <%= render "partial/navbar" %>
+
+  <div class="swipe">
+    <div class="swipe--status">
+      <i class="fa fa-times"></i>
+      <i class="fa fa-heart"></i>
+    </div>
+
+    <div class="swipe--cards">
+      <% @users.each do |user| %>
+        <div class="swipe--card">
+            <div class="profile-default-img"></div>
+            <%= image_tag user, class: "profile-img",width: '80%' %>
+        </div>
+      <% end %>
+      <div class="swipe--result-buttons">
+        <%= link_to "/users", class: "fas-item fas-link", data: {"turbolinks" => false} do %>
+        <button id="retry"><i class="fas fa-undo fa-4x"></i></button>
+        <%end%>
+        <%= link_to "/result", class: "fas-item fas-link" do %>
+        <button id="create"><i class="fas fa-image fa-5x"></i></button>
+        <%end%>
+      </div>
+    </div>
+
+    <div class="swipe--buttons">
+      <button id="dislike"><i class="fas fa-times fa-2x"></i></button>
+      <button id="like"><i class="fas fa-heart fa-2x"></i></button>
+    </div>
+  </div>
+
+</div>

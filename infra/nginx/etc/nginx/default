@@ -1,0 +1,62 @@
+server{
+    server_name jphack-teamworker.tk;
+
+    listen 80;
+    listen [::]:80;
+
+    location ^~ /.well-known {
+        default_type "text/plain";
+        root /var/www/html;
+    }
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+server{
+    server_name jphack-teamworker.tk;
+
+    listen [::]:443 ssl ipv6only=on; # managed by Certbot
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/jphack-teamworker.tk/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/jphack-teamworker.tk/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+    #location /frontend {
+    #    proxy_set_header Host $host;
+    #    proxy_pass http://127.0.0.1:81;
+    #    #proxy_redirect http:// https://;
+    #    proxy_redirect off;
+    #}
+
+    #location /backend {
+    #    proxy_set_header Host $host;
+    #    proxy_pass http://127.0.0.1:81;
+    #    #proxy_redirect http:// https://;
+    #    proxy_redirect off;
+    #}
+
+    location /pgadmin {
+        proxy_set_header X-Script-Name /pgadmin;
+        proxy_set_header Host $host;
+        proxy_pass http://127.0.0.1:81;
+        proxy_redirect http:// https://;
+        #proxy_redirect off;
+    }
+
+    location /api {
+        proxy_set_header X-Script-Name /api;
+        proxy_set_header Host $host;
+        proxy_pass http://127.0.0.1:5000;
+	proxy_redirect http:// https://;
+	}
+
+    location / {
+        root /var/www/html;
+	try_files $uri $uri/ =404;
+    }
+}
+
+

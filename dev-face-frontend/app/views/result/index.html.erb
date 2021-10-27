@@ -8,12 +8,10 @@
     </div>
 
     <div class="swipe--cards">
-      <% @users.each do |user| %>
         <div class="swipe--card">
             <div class="profile-default-img"></div>
-            <%= image_tag user, class: "profile-img",width: '80%' %>
+            <%= image_tag @user, class: "profile-img",width: '80%' %>
         </div>
-      <% end %>
     </div>
 
     <div class="swipe--buttons">

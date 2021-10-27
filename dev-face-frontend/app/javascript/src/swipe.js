@@ -61,9 +61,10 @@ if(location.pathname == "/users") {
           let xMulti = event.deltaX * 0.03;
           let yMulti = event.deltaY / 80;
           let rotate = xMulti * yMulti;
+          let img = el.getElementsByTagName("img")
 
-
-          postReaction(reaction);
+          console.log(img_path)
+          postReaction(reaction, img[0]);
 
           event.target.style.transform = 'translate(' + toX + 'px, ' + (toY + event.deltaY) + 'px) rotate(' + rotate + 'deg)';
 
@@ -72,20 +73,34 @@ if(location.pathname == "/users") {
       });
     });
 
-    function postReaction(reaction) {
-      // $.ajax({
-      //   url: "reactions.json",
-      //   type: "POST",
-      //   datatype: "json",
-      //   data: {
-      //     user_id: user_id,
-      //     reaction: reaction,
-      //   }
-      // })
-      // .done(function () {
-      //   console.log("done!")
-      // })
+    function postReaction(reaction, img) {
+      if (reaction == "like") {
+        $.ajax({
+          url: "https://jphack-teamworker.tk/api/post_image",
+          type: "POST",
+          datatype: "json",
+          data: {
+            user_id: "test",
+            image_base64: ImageToBase64(img, "image/png"),
+          }
+        })
+        .done(function () {
+          console.log("done!")
+        })
+      }
     }
+
+    function ImageToBase64(img, mime_type) {
+      // New Canvas
+      var canvas = document.createElement('canvas');
+      canvas.width  = img.width;
+      canvas.height = img.height;
+      // Draw Image
+      var ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+      // To Base64
+      return canvas.toDataURL(mime_type);
+  }
 
     function createButtonListener(reaction) {
       let cards = document.querySelectorAll('.swipe--card:not(.removed)');
@@ -96,6 +111,7 @@ if(location.pathname == "/users") {
 
       let card = cards[0];
       card.classList.add('removed');
+      console.log(card)
 
       // let user_id = card.id;
 

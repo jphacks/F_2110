@@ -10,13 +10,15 @@ class UsersController < ApplicationController
     end
 
     def index
-        url = "https://thispersondoesnotexist.com/image"
-        pre_file = "#{Rails.root}/app/assets/images/tmp_image"
-        pre_js_file_path = "tmp_image"
+        # url = "https://thispersondoesnotexist.com/image"
+        # pre_file = "#{Rails.root}/app/assets/images/face_image"
+        pre_js_file_path = "face_image"
+        randam_num = [*(0..9)]
+        randam_num = randam_num.sort_by{rand}
         image_list = []
-        for i in 1..5 do
-            file = "#{pre_file}_#{i.to_s}.png"
-            js_file = "#{pre_js_file_path}_#{i.to_s}.png"
+        for i in 0..4 do
+            # file = "#{pre_file}_#{i.to_s}.png"
+            js_file = "#{pre_js_file_path}#{randam_num[i].to_s}.png"
             image_list << js_file
             # open(file, 'w') do |pass|
             #     open(url) do |recieve|

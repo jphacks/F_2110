@@ -1,37 +1,24 @@
-import glob
 import base64
 import os
 import psycopg2
 import base64
 import yaml
 from PIL import Image
-
-# PATHLIST
-# yamlfileのパスのみ変更してください。
-with open('/home/ubuntu/repos/F_2110/backend/make_2dimage/config/PathList.yaml', 'r') as yml:
-    config = yaml.safe_load(yml)
-top = str(config['hierarchy']['top'])
-conf_file = str(config['hierarchy']['conf_file'])
-demo = str(config['hierarchy']['demo'])
-image = str(config['hierarchy']['image'])
-imgsplit = str(config['hierarchy']['imgsplit'])
-iscript = str(config['hierarchy']['iscript'])
-model = str(config['hierarchy']['model'])
-output_image = str(config['hierarchy']['output_image'])
-script = str(config['hierarchy']['script'])
-train_image = str(config['hierarchy']['train_image'])
-postgres = str(config['hierarchy']['postgres'])
-epoch_1_png = str(config['file']['epoch_1_png'])
-epoch_png = str(config['file']['epoch_png'])
-
+import sys
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+import settings
 
 #DB接続用ステータス設定
 path = "localhost"
 port = "5432"
-dbname = "xxxx"
-user = "xxxxxxx"
-password = "xxxxxxxx"
+dbname = settings.DBNAME
+user = settings.USER
+password = settings.PW
 
+# PATH読み込み
+top = settings.top
+imgsplit = settings.imgsplit
+script = settings.script
 
 def main():
     print('--------- THIS FILE IS save_img_to_db.py ---------')
@@ -40,12 +27,14 @@ def main():
     # 昇順にソート→最新のものが一番後ろにくる。
     last_img.sort()
     # リストの最後のものを取ってくる
+    # リストの最後のものを取ってくる
     last_img_name = str(last_img[-1])
     print('学習結果のファイル一覧 : ' + str(last_img))
     print('分割済みの学習結果一覧 : ' + last_img_name)
 
     # 画像をリサイズ
     img = Image.open(os.path.join(top, imgsplit,last_img_name))
+    # 500×492にするといい感じのおおきさになるので拡大する。
     img_resize = img.resize((500, 492))
     img_resize.save(os.path.join(top, imgsplit,last_img_name))
 
@@ -53,10 +42,9 @@ def main():
     filename = os.path.splitext(os.path.basename(last_img_name))[0]
 
     # ファイルにbase64の内容を書き込む
-    file_data = open(os.path.join(top,imgsplit,'') + last_img_name, "rb").read()
+    file_data = open(os.path.join(top, imgsplit, '') + last_img_name, "rb").read()
     b64_data = base64.b64encode(file_data).decode('utf-8')
     b64_data = 'data:image/png;base64,' + b64_data
-
 
     #接続部分
     conText = "host={} port={} dbname={} user={} password={}"
@@ -74,7 +62,7 @@ def main():
 
 if __name__ == '__main__':
     main()
-    exec(open(os.path.join(top,script,"rm_imagefolder.py")).read())
+    exec(open(os.path.join(top, script,"rm_imagefolder.py")).read())
 
 # DBの接続時における%sの使い方
 '''

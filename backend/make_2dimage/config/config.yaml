@@ -1,6 +1,6 @@
 #DCGAN Config file
 
-epochs: 100
+epochs: 2
 batch_size: 8
 z_dim: 100
 

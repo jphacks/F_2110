@@ -1,40 +1,30 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
- 
 from tensorflow.keras.layers import Input, Dense, Reshape, Flatten, Dropout
 from tensorflow.keras.layers import BatchNormalization, Activation, ZeroPadding2D, LeakyReLU, UpSampling2D, Conv2D
 from tensorflow.keras.models import Sequential, Model
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.preprocessing.image import img_to_array, load_img
 import tensorflow as tf
-
 import matplotlib.pyplot as plt
 import os
 import yaml
 from tqdm import tqdm
-#from tqdm import tqdm_notebook as tqdm
 import numpy as np
 from pathlib import Path
 from PIL import Image
+import sys
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+import settings
 
-# PATHLIST
-# yamlfileのパスのみ変更してください。
-with open('/home/ubuntu/repos/F_2110/backend/make_2dimage/config/PathList.yaml', 'r') as yml:
-    config = yaml.safe_load(yml)
-top = str(config['hierarchy']['top'])
-conf_file = str(config['hierarchy']['conf_file'])
-demo = str(config['hierarchy']['demo'])
-image = str(config['hierarchy']['image'])
-imgsplit = str(config['hierarchy']['imgsplit'])
-iscript = str(config['hierarchy']['iscript'])
-model = str(config['hierarchy']['model'])
-output_image = str(config['hierarchy']['output_image'])
-script = str(config['hierarchy']['script'])
-train_image = str(config['hierarchy']['train_image'])
-postgres = str(config['hierarchy']['postgres'])
-epoch_1_png = str(config['file']['epoch_1_png'])
-epoch_png = str(config['file']['epoch_png'])
+# PATH読み込み
+top = settings.top
+conf_file = settings.conf_file
+image = settings.image
+model = settings.model
+output_image = settings.output_image
+script = settings.script
+train_image = settings.train_image
 
+#　画像サイズの指定
 IMAGE_WIDTH = 128
 IMAGE_HEIGHT = 128
 
@@ -278,3 +268,6 @@ if __name__ == '__main__':
     dcgan.train()
     print('--------- EOF ---------')
     exec(open(os.path.join(top, script,"split_image.py")).read())
+
+
+

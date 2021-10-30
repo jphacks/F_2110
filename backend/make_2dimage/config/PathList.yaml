@@ -1,0 +1,18 @@
+# PathList
+# ご自身の環境に合わせて、topのみ変更してください。
+hierarchy : 
+  top : '/home/ubuntu/repos/F_2110/backend/make_2dimage'
+  conf_file : 'config'
+  demo : 'demo'
+  image : image
+  imgsplit : 'imgsplit'
+  iscript : 'iscript'
+  model : 'model'
+  output_image : 'output_image' 
+  script : 'script'
+  train_image : 'train_image'
+  postgres : 'postgres'
+
+file : 
+  epoch_1_png : 'output_image/epoch_1.png'
+  epoch_png : 'output_image/epoch'

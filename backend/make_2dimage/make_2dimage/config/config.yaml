@@ -1,7 +1,0 @@
-#DCGAN Config file
-
-epochs: 2
-batch_size: 8
-z_dim: 100
-
-reshape: true

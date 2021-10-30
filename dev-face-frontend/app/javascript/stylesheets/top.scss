@@ -1,0 +1,57 @@
+.jumbotron {
+    background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.05) ), url("~top.jpg") center no-repeat;
+    background-size: cover;
+    height: 100vh;
+    padding: 0;
+    border-radius: 0;
+  }
+  
+  .text-top-color {
+    color: #FD3378;
+    font-weight: 600;
+    padding: 6px 24px;
+  }
+  
+  .top-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    letter-spacing: 2px;
+    white-space: nowrap;
+  }
+  
+  .top-authentication {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    &__sign-up-btn {
+      background: #FD3378;
+      border-radius: 30px;
+      padding: 4px;
+      white-space: nowrap;
+    }
+    &__sign-in-btn {
+      border-radius: 30px;
+      padding: 4px;
+      white-space: nowrap;
+      border-style: solid;
+      border-color: #fff;
+      border-width: 2px;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .navbar__sign-in-btn {
+      display: none;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .top-authentication {
+      &__sign-in-btn {
+        display: none;
+      }
+    }
+  }

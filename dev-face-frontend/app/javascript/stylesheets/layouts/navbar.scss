@@ -1,0 +1,22 @@
+.nav-link {
+    color: #1f2122;
+    &:hover {
+      color: #FD3378;
+    }
+  }
+  
+  .active {
+    color: #FD3378;
+  }
+  
+  .fa-home {
+    color: #DADFE5;
+  }
+  
+  .fa-undo {
+    color: #DADFE5;
+  }
+  
+  .inherit {
+    color: inherit;
+  }

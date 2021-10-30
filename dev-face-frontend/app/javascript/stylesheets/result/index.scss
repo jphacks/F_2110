@@ -1,0 +1,33 @@
+.user-index-page {
+    max-width: 80%;
+    margin: auto 0;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    margin: 8px auto;
+    .profile {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      &-default-img {
+
+        height: 0px;
+        object-fit: cover;
+        background-image: url("~profile_default_img.png");
+        background-size: contain;
+        margin: auto;
+      }
+      &-img {
+        object-fit: cover;
+      }
+    }
+  }
+
+.home-color {
+    color: #5cf571;
+    }
+.result-img {
+    width: 100% !important;
+    }
+

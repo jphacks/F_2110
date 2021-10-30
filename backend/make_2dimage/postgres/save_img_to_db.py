@@ -4,6 +4,7 @@ import os
 import psycopg2
 import base64
 import yaml
+from PIL import Image
 
 # PATHLIST
 # yamlfileのパスのみ変更してください。

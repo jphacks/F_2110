@@ -25,9 +25,12 @@
 * とにかく7daysで動くものを作り、一気通貫でデモを実施する
 * セキュリティを意識した開発（SSL通信等）
 
-![IMAGE ALT TEXT HERE](dev-face_kousei_1.png)
+
 
 ## 開発技術
+
+![IMAGE ALT TEXT HERE](dev-face_kousei_1.png)
+
 ### 活用した技術
 #### データ
 * [This Person Does Not Exist（この人は存在しない）](https://thispersondoesnotexist.com/)

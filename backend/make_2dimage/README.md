@@ -153,8 +153,17 @@ READMEにも記載
 `python3.7 take_img_from_db.py`により、あとは自動でスクリプトが実行されていく。
 
 **実行の順番**
-    1. `/postgres/take_img_from_db.py`
-    2. `/script/dcgan_model2.py`
-    3. `/script/split_image.py`
-    4. `/postgres/save_img_to_db.py`
-    5. `/script/rm_image_folder.py`
+1.　スクリプト：`/postgres/take_img_from_db.py`
+DBからユーザ(user_id=masaru)がLikeした画像を全て取得し、PNGにエンコードして、**image**フォルダに格納。
+2. `/script/dcgan_model2.py`
+**image**フォルダに格納された画像を128×128にreshapeし、**image_train**フォルダに格納。画像をもとに学習し、epoch回数が100で割り切れる数字のものだけを**output_image**フォルダに保存。
+3. `/script/split_image.py`
+**output_image**にある画像が4枚で1枚になっているので、4当分し、左上の画像のみを、**img_split**フォルダに保存。
+4. `/postgres/save_img_to_db.py`
+**imgsplit**フォルダにある画像の中で最新のものを、500×492nいreshapeし、base64にエンコードし、DBのtbl_create_imageにuser_id=masaruで格納（UPSERT）する。
+5. `/script/rm_image_folder.py`
+**train_image**フォルダと、**image**フォルダを一度削除し、同じ名前で再度作る。
+
+### 4. 改善点
+* `dcgan_model2.py`を実行した際に、4枚が1枚となって出力されているので、それを1枚ずつにしたい。→`split_image.py`が不要になる
+* 現状最新のものを取得する際に、epoch数3桁までのものでしか取得できないので、epoch数の桁に関わらず最新のものが取得できるようにする。(list.sort()したとき、名前順だと、[1000.png, 500.png 900.png］という順番になってしまい、最新が900と判定されてしまう)

@@ -36,7 +36,7 @@
 #### フレームワーク・ライブラリ・モジュール
 ##### フロントエンド
 * Ruby 2.7.N
-* Ruby on Ralis 6
+* Ruby on Rails 6
 * Hammer.js 
 * Popper.js
 * Bootstrap
